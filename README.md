@@ -38,7 +38,7 @@ int main(void)
 }
 ```
 
-Compile the ``main.c`` file with the ft_printf library and run the program:
+Compile the ``main.c`` file with the `*.c` and run the program:
 ```bash
 cc main.c *.c && ./a.out
 ```
