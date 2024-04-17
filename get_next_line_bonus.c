@@ -77,11 +77,6 @@ char	*get_next_line(int fd)
 	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
-	if (read(fd, buff, 0) < 0)
-	{
-		free(buff);
-		return (NULL);
-	}
 	if (!buffers[fd])
 		buffers[fd] = ft_strdup("");
 	if (read_line(fd, &buff, &buffers[fd], &line) == -1 || !line)
