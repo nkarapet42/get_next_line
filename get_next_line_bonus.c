@@ -48,6 +48,12 @@ static int	read_line(int fd, char **buff, char **buffers, char **line)
 	while (!ft_strchr(*buffers, '\n') && byte)
 	{
 		byte = read(fd, *buff, BUFFER_SIZE);
+		if (byte == -1)
+		{
+			free_ptr(buffer);
+			free_ptr(buff);
+			return (-1);
+		}
 		(*buff)[byte] = '\0';
 		temp = *buffers;
 		*buffers = ft_strjoin(temp, *buff);
@@ -66,7 +72,7 @@ char	*get_next_line(int fd)
 	char		*buff;
 	char		*line;
 
-	if (fd < 0 || fd >= 1024 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd > OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
@@ -78,7 +84,7 @@ char	*get_next_line(int fd)
 	}
 	if (!buffers[fd])
 		buffers[fd] = ft_strdup("");
-	if (!read_line(fd, &buff, &buffers[fd], &line) && !line)
+	if (read_line(fd, &buff, &buffers[fd], &line) == -1 || !line)
 		return (NULL);
 	return (line);
 }
