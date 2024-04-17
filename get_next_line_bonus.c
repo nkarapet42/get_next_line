@@ -50,7 +50,7 @@ static int	read_line(int fd, char **buff, char **buffers, char **line)
 		byte = read(fd, *buff, BUFFER_SIZE);
 		if (byte == -1)
 		{
-			free_ptr(buffer);
+			free_ptr(buffers);
 			free_ptr(buff);
 			return (-1);
 		}
